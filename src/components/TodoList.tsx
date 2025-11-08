@@ -37,11 +37,26 @@ const TodoList = () => {
 
     setTodos([...todos, newTodo]);
   };
-
+  const deleteTodo = (id: number) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(newTodos);
+  };
+  const completedTodo = (id: number) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
   return (
     <div className={styles.todolist_container}>
       {todos.map((todo: Todos) => (
-        <TodoItem key={todo.id} data={todo} />
+        <TodoItem
+          key={todo.id}
+          data={todo}
+          deleteTodo={() => deleteTodo(todo.id)}
+          completedTodo={() => completedTodo(todo.id)}
+        />
       ))}
       <TodoForm addTodo={addTodo} />
     </div>

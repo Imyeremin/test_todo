@@ -12,3 +12,7 @@
     display: flex;
     gap: 8px;
 }
+
+.todoitem_container_complite{
+    background-color: rgba(76, 255, 76, 0.764);
+}

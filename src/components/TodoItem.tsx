@@ -9,15 +9,38 @@ type Todos = {
 
 interface TodoItemProps {
   data: Todos;
+  deleteTodo: () => void;
+  completedTodo: () => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ data }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  data,
+  deleteTodo,
+  completedTodo,
+}) => {
+  const [check, setCheck] = useState<boolean>(false);
+
   return (
-    <div className={styles.todoitem_container}>
+    <div
+      className={`${styles.todoitem_container} ${
+        data.completed ? styles.todoitem_container_complite : ""
+      }`}
+    >
+      <button>Редактировать</button>
       <div className="todoitem-container_desc">{data.text}</div>
       <div className={styles.todoitem_container_options}>
-        <input type="checkbox" className="todoitem-completed" />
-        <button className="todoitem-delete">Удалить</button>
+        <input
+          checked={check}
+          onChange={(e) => {
+            setCheck(e.target.checked);
+            completedTodo();
+          }}
+          type="checkbox"
+          className="todoitem-completed"
+        />
+        <button onClick={deleteTodo} className="todoitem-delete">
+          Удалить
+        </button>
       </div>
     </div>
   );
