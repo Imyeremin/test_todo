@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 import styles from "./TodoList.module.css";
+import TodosFilter from "./TodosFilter";
+import CountTodo from "./CountTodo";
 
 type Todos = {
   text: string;
@@ -28,6 +30,8 @@ const TodoList = () => {
     },
   ]);
 
+  const [countTodo, setCountTodo] = useState<number>(0);
+
   const addTodo = (value: string) => {
     const newTodo: Todos = {
       text: value,
@@ -48,17 +52,45 @@ const TodoList = () => {
       )
     );
   };
+  const todosFilter = (index: number) => {
+    if (index === 0) {
+      setTodos(todos);
+    } else if (index === 1) {
+      setTodos(todos.filter((todos) => todos.completed === false));
+    } else {
+      setTodos(todos.filter((todos) => todos.completed === true));
+    }
+  };
+  const editTodo = (id: number, text: string) => {
+    setTodos((todos) =>
+      todos.map((todo) => (todo.id === id ? { ...todo, text: text } : todo))
+    );
+  };
+
+  useEffect(() => {
+    let count: number = 0;
+    for (const todo of todos) {
+      if (todo.completed === false) {
+        count++;
+      }
+    }
+    setCountTodo(count);
+  }, [todos]);
+
   return (
     <div className={styles.todolist_container}>
+      <TodosFilter todosFilter={todosFilter} />
       {todos.map((todo: Todos) => (
         <TodoItem
           key={todo.id}
           data={todo}
           deleteTodo={() => deleteTodo(todo.id)}
           completedTodo={() => completedTodo(todo.id)}
+          editTodo={() => editTodo}
         />
       ))}
       <TodoForm addTodo={addTodo} />
+      <CountTodo count={countTodo} />
     </div>
   );
 };

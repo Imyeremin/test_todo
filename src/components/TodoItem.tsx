@@ -11,23 +11,59 @@ interface TodoItemProps {
   data: Todos;
   deleteTodo: () => void;
   completedTodo: () => void;
+  editTodo: (id: number, text: string) => void;
+}
+interface EditTodo {
+  text: string;
+  id: number;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
   data,
   deleteTodo,
   completedTodo,
+  editTodo,
 }) => {
   const [check, setCheck] = useState<boolean>(false);
+  const [flag, setFlag] = useState<boolean>(true);
+  const [editText, setEditText] = useState<EditTodo>({
+    text: data.text,
+    id: data.id,
+  });
+
+  const hangleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEditText({
+      text: e.target.value,
+      id: data.id,
+    });
+  };
+
+  const addEditTodo = () => {
+    editTodo(editText.id, editText.text);
+    setFlag(!flag);
+  };
 
   return (
     <div
       className={`${styles.todoitem_container} ${
-        data.completed ? styles.todoitem_container_complite : ""
+        data.completed && check ? styles.todoitem_container_complite : ""
       }`}
     >
-      <button>Редактировать</button>
-      <div className="todoitem-container_desc">{data.text}</div>
+      {flag ? (
+        <button onClick={() => setFlag(!flag)}>Редактировать</button>
+      ) : (
+        <button onClick={addEditTodo}>OK</button>
+      )}
+      {flag ? (
+        <div className="todoitem-container_desc">{editText.text}</div>
+      ) : (
+        <input
+          onChange={hangleChange}
+          value={editText.text}
+          type="text"
+          className="todoitem-container_desc"
+        />
+      )}
       <div className={styles.todoitem_container_options}>
         <input
           checked={check}
