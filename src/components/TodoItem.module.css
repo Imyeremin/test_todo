@@ -1,0 +1,14 @@
+.todoitem_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid rgb(110, 110, 110);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.todoitem_container_options{
+    display: flex;
+    gap: 8px;
+}
