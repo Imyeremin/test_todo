@@ -24,7 +24,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
   completedTodo,
   editTodo,
 }) => {
-  const [check, setCheck] = useState<boolean>(false);
   const [flag, setFlag] = useState<boolean>(true);
   const [editText, setEditText] = useState<EditTodo>({
     text: data.text,
@@ -46,7 +45,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   return (
     <div
       className={`${styles.todoitem_container} ${
-        data.completed && check ? styles.todoitem_container_complite : ""
+        data.completed ? styles.todoitem_container_complite : ""
       }`}
     >
       {flag ? (
@@ -66,9 +65,8 @@ const TodoItem: React.FC<TodoItemProps> = ({
       )}
       <div className={styles.todoitem_container_options}>
         <input
-          checked={check}
-          onChange={(e) => {
-            setCheck(e.target.checked);
+          checked={data.completed}
+          onChange={() => {
             completedTodo();
           }}
           type="checkbox"

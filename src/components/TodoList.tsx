@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 import styles from "./TodoList.module.css";
@@ -29,6 +29,7 @@ const TodoList = () => {
       completed: false,
     },
   ]);
+  const [filter, setFilter] = useState<number>(0);
 
   const [countTodo, setCountTodo] = useState<number>(0);
 
@@ -52,14 +53,21 @@ const TodoList = () => {
       )
     );
   };
-  const todosFilter = (index: number) => {
-    if (index === 0) {
-      setTodos(todos);
-    } else if (index === 1) {
-      setTodos(todos.filter((todos) => todos.completed === false));
-    } else {
-      setTodos(todos.filter((todos) => todos.completed === true));
+  const filteredTodos = useMemo(() => {
+    switch (filter) {
+      case 0:
+        return todos;
+      case 1:
+        return todos.filter((todo) => !todo.completed);
+      case 2:
+        return todos.filter((todo) => todo.completed);
+      default:
+        return todos;
     }
+  }, [todos, filter]);
+
+  const todosFilter = (index: number) => {
+    setFilter(index);
   };
   const editTodo = (id: number, text: string) => {
     setTodos((todos) =>
@@ -68,6 +76,13 @@ const TodoList = () => {
   };
 
   useEffect(() => {
+    try {
+      localStorage.setItem("todos", JSON.stringify(todos));
+      console.log("Данные сохранены в localStorage:", todos);
+    } catch (error) {
+      console.error(error);
+    }
+
     let count: number = 0;
     for (const todo of todos) {
       if (todo.completed === false) {
@@ -80,7 +95,7 @@ const TodoList = () => {
   return (
     <div className={styles.todolist_container}>
       <TodosFilter todosFilter={todosFilter} />
-      {todos.map((todo: Todos) => (
+      {filteredTodos.map((todo: Todos) => (
         <TodoItem
           key={todo.id}
           data={todo}
