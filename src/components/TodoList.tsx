@@ -12,23 +12,18 @@ type Todos = {
 };
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<Todos[]>([
-    {
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates veritatis nisi dignissimos mollitia quod maxime ad nemo doloremque,quaerat deleniti Optio voluptatibus, deleniti sapiente ea dolorum dictareiciendis nisi repudiandae.",
-      id: 0,
-      completed: false,
-    },
-    {
-      text: "sit amet consectetur adipisicing elit. Voluptates veritatis nisi dignissimos mollitia quod maxime ad nemo doloremque,quaerat deleniti Optio voluptatibus, deleniti sapiente ea dolorum dictareiciendis nisi repudiandae.",
-      id: 1,
-      completed: false,
-    },
-    {
-      text: "Voluptates veritatis nisi dignissimos mollitia quod maxime ad nemo doloremque,quaerat deleniti Optio voluptatibus, deleniti sapiente ea dolorum dictareiciendis nisi repudiandae.",
-      id: 2,
-      completed: false,
-    },
-  ]);
+  const [todos, setTodos] = useState<Todos[]>(() => {
+    try {
+      const saved = localStorage.getItem("todos");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return parsed;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    return [];
+  });
   const [filter, setFilter] = useState<number>(0);
 
   const [countTodo, setCountTodo] = useState<number>(0);

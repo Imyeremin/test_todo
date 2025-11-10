@@ -3,16 +3,68 @@
     justify-content: space-between;
     align-items: center;
 
-    border: 1px solid rgb(110, 110, 110);
+    background-color: #FFE9DB;
+    border: 1px solid rgb(110, 110, 110, 0.5);
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 10px;
+
 }
-.todoitem_container_options{
+
+.todoitem_container_options {
     display: flex;
     gap: 8px;
 }
 
-.todoitem_container_complite{
+.todoitem_container_complite {
     background-color: rgba(76, 255, 76, 0.764);
+}
+
+.todoitem_btn_edit,
+.todoitem_btn_delete {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255, 90, 2, 1);
+    border-radius: 20px;
+    background: rgba(255, 90, 2, 1);
+    color: rgb(255, 255, 255);
+}
+
+.todoitem_btn_edit:active {
+    background-color: rgba(255, 90, 2, 0.5);
+}
+
+.todoitem_btn_delete {
+    background-color: rgb(255, 67, 67);
+
+}
+
+.todoitem_btn_delete:active {
+    background-color: rgb(255, 67, 67, 0.5);
+}
+
+
+
+
+.todoitem_input_edit {
+    width: 100%;
+    margin: 10px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #FFE9DB;
+
+}
+
+.todoitem_input_edit:focus {
+    outline: none;
+    border-bottom: 1px solid black;
 }

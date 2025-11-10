@@ -6,21 +6,42 @@ interface TodoFormProps {
 }
 const TodoForm: React.FC<TodoFormProps> = ({ addTodo }) => {
   const [text, setText] = useState<string>("");
-
+  const [err, setErr] = useState<boolean>(true);
   const hangleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setErr(true);
     setText(e.target.value);
   };
 
   const onCliclAdd = () => {
-    addTodo(text);
-    setText("");
+    if (text === "") {
+      setErr(false);
+      return;
+    } else {
+      setErr(true);
+      addTodo(text);
+      setText("");
+    }
   };
 
   return (
-    <div className={styles.todoform_container}>
-      <input value={text} onChange={hangleChange} type="text" />
-      <button onClick={onCliclAdd}>Добавить</button>
-    </div>
+    <>
+      {" "}
+      <div className={styles.todoform_container}>
+        <label className={styles.todoform_label} htmlFor="">
+          New
+          <input
+            className={styles.todoform_input}
+            value={text}
+            onChange={hangleChange}
+            type="text"
+          />
+        </label>
+        <button className={styles.todoform_btn} onClick={onCliclAdd}>
+          Добавить
+        </button>
+      </div>
+      {!err ? <div className={styles.todoform_err}>Введите значение!</div> : ""}
+    </>
   );
 };
 

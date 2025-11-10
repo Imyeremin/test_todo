@@ -1,6 +1,54 @@
 .todoform_container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
     gap: 8px;
+    margin-bottom: 10px;
+}
+
+.todoform_btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    border: 1px solid rgb(44, 203, 44);
+    border-radius: 20px;
+    background: rgb(44, 203, 44);
+    color: rgb(255, 255, 255);
+}
+
+.todoform_btn:active {
+    background-color: rgb(44, 203, 44, 0.5);
+}
+
+.todoform_input {
+
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+}
+
+.todoform_input:focus {
+    outline: none;
+    border-bottom: 1px solid black;
+}
+
+.todoform_label {
+    color: rgba(0, 0, 0, 0.3);
+    font-family: Golos Text;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+
+.todoform_err {
+    color: red;
 }

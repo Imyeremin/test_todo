@@ -1,0 +1,40 @@
+.filter_container {
+
+    text-align: start;
+    margin-bottom: 20px;
+}
+
+.filter_container_btns_filter {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.filter_container_btns_filter>button {
+    background-color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    border: 1px solid rgb(110, 109, 109, 0.2);
+    border-bottom: 1px solid rgb(110, 109, 109, 0.5);
+}
+
+.filter_container_btns_filter>button:hover {
+    background-color: rgb(217, 214, 214);
+}
+
+
+.btn_open {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(88, 113, 240);
+    border-radius: 20px;
+    background: rgb(88, 113, 240);
+    color: rgb(255, 255, 255);
+
+}

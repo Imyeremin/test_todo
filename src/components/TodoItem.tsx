@@ -49,9 +49,16 @@ const TodoItem: React.FC<TodoItemProps> = ({
       }`}
     >
       {flag ? (
-        <button onClick={() => setFlag(!flag)}>Редактировать</button>
+        <button
+          className={styles.todoitem_btn_edit}
+          onClick={() => setFlag(!flag)}
+        >
+          Редактировать
+        </button>
       ) : (
-        <button onClick={addEditTodo}>OK</button>
+        <button className={styles.todoitem_btn_edit} onClick={addEditTodo}>
+          OK
+        </button>
       )}
       {flag ? (
         <div className="todoitem-container_desc">{editText.text}</div>
@@ -60,7 +67,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           onChange={hangleChange}
           value={editText.text}
           type="text"
-          className="todoitem-container_desc"
+          className={styles.todoitem_input_edit}
         />
       )}
       <div className={styles.todoitem_container_options}>
@@ -72,7 +79,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
           type="checkbox"
           className="todoitem-completed"
         />
-        <button onClick={deleteTodo} className="todoitem-delete">
+        <button onClick={deleteTodo} className={styles.todoitem_btn_delete}>
           Удалить
         </button>
       </div>
